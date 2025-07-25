@@ -5,18 +5,13 @@ export function combineDateTime(date, hour, minute) {
     }
 
     const year = date.getFullYear();
-    const month = date.getMonth(); // 0-indexed
+    const month = date.getMonth(); 
     const day = date.getDate();
 
-    // Create a new Date object using local time components.
-    // This will create the date/time in the server's *current* local time zone.
-    const combinedDate = new Date(year, month, day, hour, minute, 0); // Seconds = 0
-
-    // --- CRITICAL DEBUGGING LOGS (Adjusted for clarity) ---
+    const combinedDate = new Date(year, month, day, hour, minute, 0); 
     console.log("--- combineDateTime DEBUG ---");
-    console.log("Input Date (from calendar):", date.toString()); // Raw date object from calendar
+    console.log("Input Date (from calendar):", date.toString()); 
     console.log("Parsed Date Components (Desired Local):", { year, month: month + 1, day, hour, minute });
-    // This will now show the correct local time based on the server's actual TZ
     console.log("Combined Date Object (Server's Local Time):", combinedDate.toString());
     console.log("Combined Date Object (ISO UTC):", combinedDate.toISOString());
     console.log("Combined Date Object (Milliseconds since Epoch):", combinedDate.getTime());
