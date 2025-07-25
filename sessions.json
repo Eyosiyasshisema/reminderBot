@@ -1,0 +1,32 @@
+{
+  "sessions": [
+    {
+      "id": "361942452:361942452",
+      "data": {
+        "state": "AWAITING_DATE",
+        "reminderText": "asd",
+        "reminderType": "one_time",
+        "selectedDate": null,
+        "selectedHour": null,
+        "selectedMinute": null,
+        "triggerAt": "2025-07-25T00:30:00.000Z",
+        "recurrenceValue": null,
+        "recurrenceUnit": null
+      }
+    },
+    {
+      "id": "424210361:424210361",
+      "data": {
+        "state": "IDLE",
+        "reminderText": null,
+        "reminderType": null,
+        "selectedDate": null,
+        "selectedHour": null,
+        "selectedMinute": null,
+        "triggerAt": "2025-07-24T06:15:00.000Z",
+        "recurrenceValue": null,
+        "recurrenceUnit": null
+      }
+    }
+  ]
+}

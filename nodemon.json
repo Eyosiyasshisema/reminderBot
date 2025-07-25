@@ -1,0 +1,16 @@
+{
+  "watch": ["src/", "index.js", "package.json"],
+  "ext": "js,json",
+  "ignore": [
+    ".git",
+    "node_modules",
+    "npm-debug.log",
+    "*.sqlite",     
+    "*.db",          
+    ".env",          
+    "logs/",         
+    "*.log",         
+    "sessions/",     
+    "temp/"          
+  ]
+}
