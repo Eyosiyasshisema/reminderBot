@@ -7,4 +7,5 @@ const REMINDER_CHECK_INTERVAL_MS = 60 * 1000;
 checkAndSendReminders(bot);
 setInterval(() => checkAndSendReminders(bot), REMINDER_CHECK_INTERVAL_MS);
 console.log(`Reminder scheduler started, checking every ${REMINDER_CHECK_INTERVAL_MS / 1000} seconds.`);
+startBot(); 
 // Small change to trigger deploy
