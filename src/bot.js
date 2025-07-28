@@ -7,8 +7,13 @@ import { initializeCalendar } from "./utils/telegramCalendar.js";
 import { combineDateTime, parseRecurrenceInterval } from "./utils/dateUtils.js";
 import { displayHourSelection, displayMinuteSelection ,displayRecurrenceSelection } from "./utils/uiHelpersFunctions.js";
 
+console.log('DEBUG: Value of process.env.APITOKEN:', process.env.APITOKEN ? 'Token Loaded (masked for security)' : 'Token NOT Loaded / Undefined');
+
+
 const store =Postgres({pool});
 const bot = new Telegraf(process.env.APITOKEN);
+
+console.log('DEBUG: Telegraf bot instance created:', bot ? 'Yes' : 'No'); 
 
 bot.use((ctx, next) => {
   console.log('DEBUG: Received an update from Telegram.');
