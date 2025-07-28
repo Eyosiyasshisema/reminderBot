@@ -10,16 +10,24 @@ import { displayHourSelection, displayMinuteSelection ,displayRecurrenceSelectio
 const store =Postgres({pool});
 const bot = new Telegraf(process.env.APITOKEN);
 
+bot.use((ctx, next) => {
+  console.log('DEBUG: Received an update from Telegram.');
+  console.log('DEBUG: Update object:', JSON.stringify(ctx.update, null, 2));
+  return next();
+});
+
 bot.use(new session({store}));
 
 
 const calendar = initializeCalendar(bot);
 
-bot.start(async (ctx) =>{
-    await ctx.reply("Welcome to the reminder bot, what would u like me to remind you about?")
-    ctx.session.state ="AWAITING_REMINDER_TEXT"; 
-    console.log(`User ${ctx.from.id} entered state: ${ctx.session.state}`);
-})
+bot.start(async (ctx) => {
+  console.log('DEBUG: /start command handler triggered.'); 
+  await ctx.reply("Welcome to the reminder bot, what would u like me to remind you about?")
+  ctx.session.state ="AWAITING_REMINDER_TEXT"; 
+  console.log(`User ${ctx.from.id} entered state: ${ctx.session.state}`);
+  console.log('DEBUG: Reply for /start sent.'); 
+});
 
 bot.on("text", async (ctx) => {
     const currentState = ctx.session.state;
@@ -305,11 +313,21 @@ async function saveRecurringReminder(ctx) {
         ctx.session.state = 'IDLE';
     }
 }
-
 export function startBot() {
-    bot.launch();
-    console.log('Bot started.');
-
+    bot.launch() 
+        .then(() => {
+            console.log('Bot successfully launched and connected to Telegram API!');
+        })
+        .catch((err) => {
+            console.error('CRITICAL ERROR: Bot failed to launch or connect to Telegram!', err);
+            if (err.response && err.response.error_code) {
+                console.error(`Telegram API Error Code: ${err.response.error_code}`);
+                console.error(`Telegram API Error Description: ${err.response.description}`);
+            } else {
+                console.error('Network or other launch error:', err.message || err);
+            }
+             process.exit(1); 
+        });
     process.once('SIGINT', () => bot.stop('SIGINT'));
     process.once('SIGTERM', () => bot.stop('SIGTERM'));
 }
